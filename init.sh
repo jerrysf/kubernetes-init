@@ -38,9 +38,9 @@ EOF
 
 yum install -y epel-release
 yum install -y yum-utils device-mapper-persistent-data lvm2 net-tools conntrack-tools wget vim  ntpdate libseccomp libtool-ltdl 
-yum install -y etcd
+yum install -y etcd kubelet kubectl docker kubeadm
 
-systemctl enable ntpdate.service
+systemctl enable ntpdate.service docker kubelet
 
 systemctl start ntpdate.service
  
