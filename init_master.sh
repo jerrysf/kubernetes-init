@@ -12,12 +12,6 @@ sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config  
 
-cat <<EOF >  /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
-EOF
-sysctl -p /etc/sysctl.d/k8s.conf
-
 #Setup Proxy
 export https_proxy="http://proxy.sin.sap.corp:8080"
 export http_proxy="http://proxy.sin.sap.corp:8080"
