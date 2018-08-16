@@ -45,6 +45,7 @@ echo "* hard nproc 65536"  >> /etc/security/limits.conf
 echo "* soft  memlock  unlimited"  >> /etc/security/limits.conf
 echo "* hard memlock  unlimited"  >> /etc/security/limits.conf
 
+// remember to add all node ip into no_proxy before kubeadm init!!!
 kubeadm init --pod-network-cidr=192.168.0.0/16
 
 mkdir -p $HOME/.kube
