@@ -24,6 +24,13 @@ export http_proxy="http://proxy.sin.sap.corp:8080"
 #Excluding Proxy for KUBE API Server
 export no_proxy="10.130.227.241"
 
+cat <<EOF >> ~/.bashrc
+export https_proxy="http://proxy.sin.sap.corp:8080"
+export http_proxy="http://proxy.sin.sap.corp:8080"
+export no_proxy="10.130.227.241"
+echo 1 > /proc/sys/net/ipv4/ip_forward
+EOF
+
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
