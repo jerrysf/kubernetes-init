@@ -51,6 +51,12 @@ echo "* hard nproc 65536"  >> /etc/security/limits.conf
 echo "* soft  memlock  unlimited"  >> /etc/security/limits.conf
 echo "* hard memlock  unlimited"  >> /etc/security/limits.conf
 
+mkdir -p /etc/systemd/system/docker.service.d/
+cat <<EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
+[Service]
+Environment="HTTP_PROXY=http://proxy.sin.sap.corp:8080"
+EOF
+
 kubeadm join --token scy4pi.l3c6d89484o8c4bg  --discovery-token-unsafe-skip-ca-verification  10.130.227.241:6443
 
 
