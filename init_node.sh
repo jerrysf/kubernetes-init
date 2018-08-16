@@ -62,6 +62,9 @@ cat <<EOF > /etc/systemd/system/docker.service.d/http-proxy.conf
 Environment="HTTP_PROXY=http://proxy.sin.sap.corp:8080"
 EOF
 
+systemctl daemon-reload
+systemctl restart docker
+
 // Remember to set hostname before join
 kubeadm join --token scy4pi.l3c6d89484o8c4bg  --discovery-token-unsafe-skip-ca-verification  10.130.227.241:6443
 
