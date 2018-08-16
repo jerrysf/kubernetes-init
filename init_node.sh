@@ -43,6 +43,10 @@ yum install -y etcd kubelet kubectl docker kubeadm
 
 systemctl enable ntpdate.service docker kubelet
 
+systemctl daemon-reload
+
+source ~/.bashrc
+
 systemctl start ntpdate.service docker kubelet
  
 echo "* soft nofile 65536" >> /etc/security/limits.conf
