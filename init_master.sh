@@ -12,12 +12,6 @@ sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config  
 
-#Setup Proxy
-export https_proxy="http://proxy.sin.sap.corp:8080"
-export http_proxy="http://proxy.sin.sap.corp:8080"
-#Excluding Proxy for KUBE API Server
-export no_proxy="10.130.227.241"
-
 echo 1 > /proc/sys/net/ipv4/ip_forward
 
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -45,14 +39,14 @@ echo "* hard nproc 65536"  >> /etc/security/limits.conf
 echo "* soft  memlock  unlimited"  >> /etc/security/limits.conf
 echo "* hard memlock  unlimited"  >> /etc/security/limits.conf
 
-// remember to add all node ip into no_proxy before kubeadm init!!!
-kubeadm init --pod-network-cidr=192.168.0.0/16
+# remember to add all node ip into no_proxy before kubeadm init!!!
+# configure using flannel as pod network
+kubeadm init --pod-network-cidr=10.244.0.0/16
 
+# configure kubectl
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
-kubectl apply -f \
-https://docs.projectcalico.org/v3.1/getting-started/kubernetes/installation/hosted/kubeadm/1.7/calico.yaml
-
-
+# install flannel as pod network
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.10.0/Documentation/kube-flannel.yml
