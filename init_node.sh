@@ -12,12 +12,6 @@ sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
 sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config  
 
-#Setup Proxy
-export https_proxy="http://proxy.sin.sap.corp:8080"
-export http_proxy="http://proxy.sin.sap.corp:8080"
-#Excluding Proxy for KUBE API Server
-export no_proxy="10.130.227.241"
-
 cat <<EOF >> ~/.bashrc
 export https_proxy="http://proxy.sin.sap.corp:8080"
 export http_proxy="http://proxy.sin.sap.corp:8080"
